@@ -1,88 +1,137 @@
-#include<Ultrasonic.h> // This library is used to find the distance using the ultrasonic sensor.
+#include <Ultrasonic.h> 
 
-int leftirsensor=2;//leftirsensor is connected to pin no 2
-int rightirsensor=3;//rightirsensor is connected to pin no 3
-int leftmotordir1=4; //pin of leftmotor forward direction is connected to pin 4
-int leftmotordir2=5; //pin of leftmotor backward direction is connected to pin 5
-int rightmotordir1=6; //pin of rightmotor forward direction is connected to pin 6
-int rightmotordir2=7; //pin of rightmotor backward direction is connected to pin 7
+// Ultrasonic library is used to find the distance using the ultrasonic sensor.This library is very handy. It greatly reduced the length of our code to find the distance
+//of the obstacle from the robot.
+
+//regarding the line following part
+//All the left size components are defined here.  
+ int leftIRsensordevice = 8;  //the left ir sensor is connected to pin no 8.
+ int leftIRsensorvalue;      //defined an integer to store the value sensed(given output) by the respective sensor.
+ int motorleftdirection1 = 4;//one pin of the left motor is connected to pin no 4 and it is for forward motion. 
+ int motorleftdirection2 = 5;//the second pin of the left motor is connected to pin no 5 and it is for backward motion.
+
+//All the right size components are defined here. 
+ int rightIRsensordevice = 7; //the right ir sensor is connected to pin no 7.
+ int rightIRsensorvalue;      //defined an integer to store the value sensed(given output) by the respective sensor.
+ int motorrightdirection1 = 2;//one pin of the right motor is connected to pin no 2 and it is for forward motion. 
+ int motorrightdirection2 = 3;//the second pin of the right motor is connected to pin no 3 and it is for backward motion.
+ 
+//regarding the obstacle sensing sensor
+ Ultrasonic mysonar(9,10);//the name of ultrasonic radar is named as mysonar for our comfort and using Ultrasonic infront of it will give name to the sensor as defined 
+//in the Ultrasonic library and the pins of ultrasonic radar (trig pin is connected to pin 8 and its echo pin is connected to pin 9)
+ int obstacledistance;   //an integer variable is declared to store the distance of obstacle from the robot which is given by the sensor
+ int stopbefore=15;      //an minimum distance of 15 is been given to the data for stopping the robot if it senses any obstacle nearby on in the range of stopbefore region
 
 
-Ultrasonic mysonar(8,9);//the name of ultrasonic radar is named as mysonar for our comfort a=and using ultrasonic infront of it will give name to the sensor and
-//the pins of ultrasonic radar trig pin is connected to pin 8 and its echo pin is connected to pin 9
+
 void setup() {
- 
- 
- pinMode(leftirsensor,INPUT);//here we are giving input to the ir sensors to get the path direction/detection so by the working of ir sensors principle the two ir sensors are given an input
- pinMode(rightirsensor,INPUT);
- pinMode(leftmotordir1,OUTPUT);//by the help of the output given by the two sensors we are given the output to rotate the motors to get rotation respectively
- pinMode(leftmotordir2,OUTPUT);
- pinMode(rightmotordir1,OUTPUT);
- pinMode(rightmotordir2,OUTPUT);
+// put your setup code here, to run once:
 
-}
-
-void loop() {
- 
- 
- 
- int leftvalue=digitalRead(leftirsensor); //the left value is the value read by the leftirsensor,digitalRead() is used to read the values of the component connceted
- int rightvalue=digitalRead(rightirsensor);//the right value is the value read by the rightirsensor,digitalRead() is used to read the values of the component connceted
- 
- 
- int distanceaheadtostop=15; //it is the distance at which we are given to stop the linefollower when detect an obstacle
- int obstacledistance=mysonar.read(); //it is a function syntax used to read the distance of the obstacle from the ultrasonicradar ,in this we need to take the reading and take it as obstacle distance
-    //it is similar to:
-    //  digitalWrite(trigpin,HIGH);
-    //  delay(10);
-    // digitalWrite(trigPin,LOW);
-    // delay(2);
-    //    int duration=digitalRead(echopin,HIGH);
-    //int reading=duration*.034/2;
-
- 
- if(obstacledistance>distanceaheadtostop)//checking that if the distance is greater than the distance hence we are giving output to the motors if it is true and the robot can run
- {
- 
-  if(leftvalue==HIGH && rightvalue==HIGH)//The right sensor detects black and the left sensor detects black.
-      {stops();}
-  if(leftvalue==HIGH && rightvalue==LOW)//The right sensor detects black and the left sensor detects white.
-     {turnright();}
-  if(leftvalue==LOW && rightvalue==HIGH)//The right sensor detects white and the left sensor detects black.
-     {turnleft();} 
-   else
-  {moveforward();}       
- }
- else//if distancee is more than 15 then it will stop
- {stops();}
-}
+//Here we are given an input to the both sensors to  detect the path direction/detection so by the working of ir sensors principle we gave two ir sensors an input to get
+//the output   
+     
+      pinMode(leftIRsensordevice,INPUT);
+      pinMode(rightIRsensordevice,INPUT);
+      
+//the output to the motors is given to get motion accordingly to move the robot.         
+      pinMode(motorleftdirection1,OUTPUT);
+      pinMode(motorleftdirection2,OUTPUT);
+      pinMode(motorrightdirection1,OUTPUT);
+      pinMode(motorrightdirection2,OUTPUT);
+     }
 
 
-void stops() //This is to make it stop. 
+void loop()
 {
-  digitalWrite(leftmotordir1,LOW);
-  digitalWrite(leftmotordir2,LOW);
-  digitalWrite(rightmotordir1,LOW);
-  digitalWrite(rightmotordir2,LOW);
+ 
+// put your main code here, to run repeatedly:
+
+//we are taking the outputs given by the two ir sensors after sensing the path ahead by respective sensors.
+//digitalRead() is used to read the values of the component connceted   
+  leftIRsensorvalue = digitalRead(leftIRsensordevice); //value given by left sensor
+  rightIRsensorvalue = digitalRead(rightIRsensordevice); //value given by right sensor
+ 
+//to find the distance from obstacle to the robot  
+  obstacledistance = mysonar.read();
+// we are using a syntax nameoftheultrasonicsensordefined.read() from Ultrasonic library to find the distance between the robot and the obstacle.  
+    //it is similar to:(for finding distance without using the library)
+    //digitalWrite(trigpin,HIGH);
+    //delay(10);
+    //digitalWrite(trigPin,LOW);
+    //delay(2);
+    //int duration=digitalRead(echopin,HIGH);
+    //int distance=duration*.034/2;
+ 
+  
+  if(obstacledistance>stopbefore)
+  //if the obstacledistance is greater than the safer distance then the robot will get in motion according to the path detected by the sensors
+    {
+      //LOW indicates white surface.
+      //HIGH indicates black surface.
+       if((rightIRsensorvalue == LOW) &&   (leftIRsensorvalue == HIGH))
+       //as the right sensor detects the white and the left sensor detects the black we want our robot to bent in the direction of black so it turns left. 
+         {
+            turnleft();
+          }
+       else if((rightIRsensorvalue == HIGH) &&   (leftIRsensorvalue == LOW))
+       //as the right sensor detects the black and the left sensor detects the white we want our robot to bent in the direction of black so it turns right.
+         {
+          turnright();
+          }
+       else if((rightIRsensorvalue == HIGH) &&   (leftIRsensorvalue == HIGH))
+       //as the right sensor detects the black and the left sensor detects the black hence the robot need to stop.
+         {
+           stops();
+          }
+       else
+         {
+          moveforward();
+          }
+    }
+  else
+  //If the obstacledistance is less than the safer distance then the robot will stop.
+    {
+      stops();
+    }
 }
-void turnright()//This function will make the robot turn right.
+
+//digitalWrite() is used to make things work or stop based on digital signals given to it in the form of HIGH or LOW.
+//digitalWrite()is the syntax used to supply voltage accordingly to the motors as HIGH corresponding to maximum voltage/speed(255) and LOW corresponds to minimum voltage/speed(0)
+//we can use analogWrite() also to give the intermediatery motions between 0 to 255.but in our case because of low power batteries analogWrite function didn't worked significantly.
+//void is used to define functions
+void moveforward()
 {
-  analogWrite(leftmotordir1,190);
-  digitalWrite(leftmotordir2,LOW);
-  digitalWrite(rightmotordir1,LOW);
-  analogWrite(rightmotordir2,130);
+  //this function makes the robot to move forward by giving forward motion to both the wheels
+  digitalWrite(motorrightdirection1,HIGH);
+  digitalWrite(motorrightdirection2,LOW);
+  digitalWrite(motorleftdirection1,HIGH);
+  digitalWrite(motorleftdirection2,LOW);
 }
-void turnleft()//This function will make the robot turn left.
+
+
+void turnleft()
 {
-  digitalWrite(leftmotordir1,LOW);
-  analogWrite(leftmotordir2,130);
-  analogWrite(rightmotordir1,190);
-  digitalWrite(rightmotordir2,LOW);
+  //this function makes the robot to turn left by giving forward motion to right wheel and stop the left wheel.
+  digitalWrite(motorrightdirection1,HIGH);
+  digitalWrite(motorrightdirection2,LOW);
+  digitalWrite(motorleftdirection1,LOW);
+  digitalWrite(motorleftdirection2,LOW);
 }
-void moveforward()//This function will make the robot to move forward
+
+void turnright()
 {
-  digitalWrite(leftmotordir1,HIGH);
-  digitalWrite(leftmotordir2,LOW);
-  digitalWrite(rightmotordir1,HIGH);
-  digitalWrite(rightmotordir2,LOW);
+  //this function makes the robot to turn right by giving forward motion to left wheel and stop the right wheel.
+  digitalWrite(motorrightdirection1,LOW);
+  digitalWrite(motorrightdirection2,LOW);
+  digitalWrite(motorleftdirection1,HIGH);
+  digitalWrite(motorleftdirection2,LOW);
+}
+
+void stops()
+{ 
+   //this function makes the robot to stop by stopping motion to the both wheels.
+  digitalWrite(motorrightdirection1,LOW);
+  digitalWrite(motorrightdirection2,LOW);
+  digitalWrite(motorleftdirection1,LOW);
+  digitalWrite(motorleftdirection2,LOW);
 }
