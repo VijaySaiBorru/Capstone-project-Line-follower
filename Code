@@ -18,7 +18,7 @@
  
 //regarding the obstacle sensing sensor
  Ultrasonic mysonar(9,10);//the name of ultrasonic radar is named as mysonar for our comfort and using Ultrasonic infront of it will give name to the sensor as defined 
-//in the Ultrasonic library and the pins of ultrasonic radar (trig pin is connected to pin 8 and its echo pin is connected to pin 9)
+//in the Ultrasonic library and the pins of ultrasonic radar (trig pin is connected to pin 9 and its echo pin is connected to pin 10)
  int obstacledistance;   //an integer variable is declared to store the distance of obstacle from the robot which is given by the sensor
  int stopbefore=15;      //an minimum distance of 15 is been given to the data for stopping the robot if it senses any obstacle nearby on in the range of stopbefore region
 
