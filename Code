@@ -59,8 +59,8 @@ void loop()
     //delay(10);
     //digitalWrite(trigPin,LOW);
     //delay(2);
-    //int duration=digitalRead(echopin,HIGH);
-    //int distance=duration*.034/2;
+    //int duration=pulseIn(echopin,HIGH);
+    //int distance=duration*0.034/2;
  
   
   if(obstacledistance>stopbefore)
