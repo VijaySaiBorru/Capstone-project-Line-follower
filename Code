@@ -108,6 +108,14 @@ void moveforward()
   digitalWrite(motorleftdirection2,LOW);
 }
 
+void turnright()
+{
+  //this function makes the robot to turn right by giving forward motion to left wheel and stop the right wheel.
+  digitalWrite(motorrightdirection1,LOW);
+  digitalWrite(motorrightdirection2,LOW);
+  digitalWrite(motorleftdirection1,HIGH);
+  digitalWrite(motorleftdirection2,LOW);
+}
 
 void turnleft()
 {
@@ -115,15 +123,6 @@ void turnleft()
   digitalWrite(motorrightdirection1,HIGH);
   digitalWrite(motorrightdirection2,LOW);
   digitalWrite(motorleftdirection1,LOW);
-  digitalWrite(motorleftdirection2,LOW);
-}
-
-void turnright()
-{
-  //this function makes the robot to turn right by giving forward motion to left wheel and stop the right wheel.
-  digitalWrite(motorrightdirection1,LOW);
-  digitalWrite(motorrightdirection2,LOW);
-  digitalWrite(motorleftdirection1,HIGH);
   digitalWrite(motorleftdirection2,LOW);
 }
 
