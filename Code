@@ -4,17 +4,19 @@
 //of the obstacle from the robot.
 
 //regarding the line following part
-//All the left size components are defined here.  
- int leftIRsensordevice = 8;  //the left ir sensor is connected to pin no 8.
- int leftIRsensorvalue;      //defined an integer to store the value sensed(given output) by the respective sensor.
- int motorleftdirection1 = 4;//one pin of the left motor is connected to pin no 4 and it is for forward motion. 
- int motorleftdirection2 = 5;//the second pin of the left motor is connected to pin no 5 and it is for backward motion.
 
 //All the right size components are defined here. 
  int rightIRsensordevice = 7; //the right ir sensor is connected to pin no 7.
  int rightIRsensorvalue;      //defined an integer to store the value sensed(given output) by the respective sensor.
  int motorrightdirection1 = 2;//one pin of the right motor is connected to pin no 2 and it is for forward motion. 
  int motorrightdirection2 = 3;//the second pin of the right motor is connected to pin no 3 and it is for backward motion.
+//All the left size components are defined here.  
+ int leftIRsensordevice = 8;  //the left ir sensor is connected to pin no 8.
+ int leftIRsensorvalue;      //defined an integer to store the value sensed(given output) by the respective sensor.
+ int motorleftdirection1 = 4;//one pin of the left motor is connected to pin no 4 and it is for forward motion. 
+ int motorleftdirection2 = 5;//the second pin of the left motor is connected to pin no 5 and it is for backward motion.
+
+
  
 //regarding the obstacle sensing sensor
  Ultrasonic mysonar(9,10);//the name of ultrasonic radar is named as mysonar for our comfort and using Ultrasonic infront of it will give name to the sensor as defined 
