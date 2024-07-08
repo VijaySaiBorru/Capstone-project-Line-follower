@@ -1,4 +1,4 @@
-#include <Ultrasonic.h> 
+#include <Ultrasonic.h>
 
 // Ultrasonic library is used to find the distance using the ultrasonic sensor.This library is very handy. It greatly reduced the length of our code to find the distance
 //of the obstacle from the robot.
