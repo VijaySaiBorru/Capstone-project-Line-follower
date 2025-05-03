@@ -1,39 +1,108 @@
-# Capstone-project-Line-follower
-INTRODUCTION
+# Capstone Project: Line Follower Robot (with Obstacle Detection)
 
- Line Following is one of the most important aspects 
-of robotics. A Line Following Robot is an autonomous robot which is able to 
-follow either a black line that is drawn on the surface consisting of a contrasting 
-color. It is designed to move automatically and follow the line. The robot uses 
-arrays of optical sensors to identify the line, thus assisting the robot to stay on the 
-track. The array of two sensor makes its movement precise and flexible. The robot 
-is driven by DC gear motors to control the movement of the wheels. The Arduino 
-Uno interface is used to perform and implement algorithms to control the speed of 
-the motors, steering the robot to travel along the line smoothly. The ultrasonic 
-sensor present in the robot detects any type of obstacle in front of the robot so that 
-there is no accident happening with the robot. This project aims to implement the 
-algorithm and control the movement of the robot by proper tuning of the control 
-parameters and thus achieve better performance. It can be used industrial 
-automated equipment carriers, small household applications, tour guides in 
-museums and other similar applications, etc
+An autonomous robot that follows a black line on a contrasting surface using IR sensors and Arduino, with added obstacle detection using an ultrasonic sensor.
 
-MOTIVATION 
+## 🧠 Introduction
 
- We went through many topics when we were given 
-this project. But the line follower fascinated us the most as there are many practical 
-applications for this project. Ever thought of a robot which follows line? A perfect 
-or near perfect mimic of nature? After all, the purpose of robotics is to recreate in
-terms of machines what one see around to solve a problem or fulfil a requirement .
-Developing a line follower robot involves overcoming challenges and solving 
-problems related to sensor calibration, line detection algorithms etc. We thought 
-that this alone won’t challenging enough for us. So, we decided to add obstacle 
-avoidance part in this robot.
-Our fascination towards robotics and desperation to learn more about building and 
-programming robots is also one of the reasons for choosing this topic.
-The areas that will be benefitted from the project:
+A **Line Following Robot** is an autonomous device designed to follow a specific path (usually a black line on a white surface or vice versa) using optical sensors. The robot uses arrays of IR sensors to detect the line and DC gear motors for movement, controlled by an **Arduino Uno**. An **ultrasonic sensor** is integrated for obstacle detection, enabling the robot to stop and avoid collisions automatically.
 
- Industrial automated equipment carriers
+This project demonstrates core concepts in robotics, sensor integration, and motor control, and has practical applications in industrial automation, entertainment, and navigation systems.
 
- Entertainment and small household applications
+## 🚀 Features
 
- Tour guides in museums and other similar application
+- **Autonomous Navigation**: Follows a black line on a contrasting background using IR sensors.
+- **Obstacle Avoidance**: Detects and stops for obstacles using an ultrasonic sensor.
+- **Flexible Movement**: Capable of making precise turns and adjustments.
+- **Environmentally Robust**: Insensitive to ambient lighting and noise.
+- **Modular Design**: Easily expandable for future enhancements (e.g., color detection, LCD display, maze solving).
+
+## 🔩 Components
+
+| Component                   | Description                              |
+|----------------------------|------------------------------------------|
+| Arduino Uno                | Microcontroller for logic and control    |
+| IR Sensors (Array)         | Detects line and provides feedback       |
+| Ultrasonic Sensor (HC-SR04)| Detects obstacles in the robot’s path    |
+| L298N Motor Driver         | Controls speed and direction of motors   |
+| DC Gear Motors             | Drives the robot’s wheels                |
+| Chassis                    | Physical frame for mounting components   |
+| Wheels, Castor Wheel       | Provides mobility and stability          |
+| Battery Holder & Batteries | Power supply for the system              |
+| Breadboard & Jumper Wires | Circuit connections                      |
+
+## ⚙️ Working Principle
+
+1. **Obstacle Detection**: The ultrasonic sensor continuously checks for obstacles. If detected, the robot stops.
+2. **Line Detection**: Two IR sensors detect the black line.
+   - If both sensors are on a white surface → robot moves forward.
+   - If left sensor detects the line → robot turns left.
+   - If right sensor detects the line → robot turns right.
+   - If both sensors lose the line → robot stops.
+3. **Motor Control**: The Arduino processes sensor inputs and commands the L298N motor driver to control the motors.
+
+## 🔧 Circuit Diagram & Assembly
+
+### Basic Connections
+
+[IR Sensor 1] -----------> [Arduino]
+[IR Sensor 2] -----------> [Arduino]
+[Ultrasonic Sensor] -----> [Arduino]
+[Arduino] ---------------> [L298N Motor Driver] ---> [DC Motors]
+[Battery Holder] --------> [Arduino & Motor Driver]
+
+
+### Assembly Steps
+
+- Mount IR sensors at the front of the chassis, facing downward.
+- Position the ultrasonic sensor in front for obstacle detection.
+- Attach DC motors to the chassis and connect to the motor driver.
+- Wire components to Arduino and motor driver.
+- Connect battery holder for power supply.
+
+## 🧪 How to Use
+
+1. **Assemble the Robot**: Mount and wire all components as shown above.
+2. **Upload Code**: Use the Arduino IDE to flash the provided code.
+3. **Calibrate Sensors**: Adjust IR sensor sensitivity using potentiometers.
+4. **Test the Robot**: Place it on a track and observe its movement.
+5. **Obstacle Testing**: Place an obstacle to verify stopping behavior.
+
+## 🏭 Areas of Application
+
+- **Industrial Automation**: Material carriers in factories.
+- **Entertainment**: Robot toys, educational kits.
+- **Navigation**: Museum tour guides, exhibition bots.
+
+## 🌱 Future Scope
+
+- Maze solving algorithms
+- Color detection sensors
+- Path learning AI integration
+
+## 🎓 Lessons Learned
+
+- **Hardware Integration**: Hands-on circuit building.
+- **Sensor Calibration**: Importance of tuning for accuracy.
+- **Problem Solving**: Debugging both hardware and software.
+- **Teamwork**: Collaborative engineering and testing.
+
+## 🔮 Future Enhancements
+
+- **Color Sensor**: Respond to different colored lines.
+- **LCD Display**: Display real-time data (e.g., distance).
+- **CCD Camera**: Advanced path detection and navigation.
+- **Servo Motors**: For intelligent obstacle avoidance.
+
+## 👨‍💻 Team Members
+
+| Name                          | Roll No       |
+|-------------------------------|---------------|
+| Borru Vijay Sai               | 22EC01036     |
+| Kakaraparthy Mohith Prakash   | 22EC01002     |
+| Kotikalapudi Rohith V S D M   | 22EC01010     |
+| Yedupati Harsha Vardhan       | 22EC01007     |
+| C V Harshith Reddy            | 22CS01013     |
+
+## 🤝 Contributing
+
+Feel free to **fork this project**, **report issues**, or **submit pull requests** to improve or extend functionality!
